@@ -1,13 +1,12 @@
--- List all cities of Cali that can be foundd in 'hbtn_0d_usa'
--- "states table contains only records where 'name = Califonia"
--- but 'id' cannot be different.
---Results must be stored in ascending order by 'city.id'
--- Not allowed to use JOIN Keyword
-
+-- List all cities of CA that can be found in db 'hbtn_0d_usa'
+-- 'states' table contains only one record where 'name = California'
+-- but 'id' cant be different
+-- Results must be sorted in ascending order by 'cities.id'
+-- Not allowed to use JOIN keyword
 SELECT id, name
 FROM cities
 WHERE state_id = (
-	SELECT id
-	FROM states
-	WHERE name = 'Califonia'
+      SELECT id
+      FROM states
+      WHERE name = 'California'
 );
