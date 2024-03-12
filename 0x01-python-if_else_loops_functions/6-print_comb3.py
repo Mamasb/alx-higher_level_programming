@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 j = 1
 i = 0
-while(i < 9):
+while (i < 9):
     x = j
-    while(x < 10):
-        if(x == 9 and i == 8):
+    while (x < 10):
+        if (x == 9 and i == 8):
             print('{:d}{:d}'.format(i, x))
         else:
             print("{:d}{:d}, ".format(i, x), end='')
