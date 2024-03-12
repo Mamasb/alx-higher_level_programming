@@ -8,6 +8,6 @@ while(i < 9):
             print('{:d}{:d}'.format(i, x))
         else:
             print("{:d}{:d}, ".format(i, x), end='')
-        x = j + 1
+        x = x + 1
     j = j + 1
     i = i + 1
