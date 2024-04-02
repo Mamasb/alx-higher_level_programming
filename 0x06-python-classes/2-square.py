@@ -1,32 +1,23 @@
 #!/usr/bin/python3
-"""Documentation for a square class"""
+''' A Module that creates a Square object '''
 
-class Square:
-    """Represents a square class of quadrilateral wityh four equal sides
+class Square;
+''' Creating an Object template '''
 
-    Attributes:
-       __size (int): size of a side of the square
-       """
-    def __init__(self, size=0):
-        """Initializesd a new square
+    def __init__(self, size = 0):
+        '''
+            The init method initializes the class instance
 
-           Args:
-               size (int): size of a side of a squarte
+        @self:
+            A parameter used to refer to the class instance
 
-           Returns:
-              None
-
-           Raises:
-                 ValueError: when thge value passed is lessthan 0
-                 TYypeError:when the value passed is not an iunteger
-           """
-        if not isinstance(size, int):
-            raise TypeError("size must be an integer")
-        elif size < 0:
-            raise ValueError("size must be >= 0")
-        
+        @size:
+            The size of the square, must be a +ve integer
+        '''
+        if type(size) is int:
+            if size < 0:
+                raise ValueError('Size must be >= 0')
+            else:
+                self.__size = size
         else:
-           self.__size = size
-
-
-
+            raise TypeError('Size must be an integer')
