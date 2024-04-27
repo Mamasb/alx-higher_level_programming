@@ -2,5 +2,4 @@
 """Defines aRectangle class"""
 
 class Rectangle:
-    """Represents a rectangle"""
-    pass
+    passs
