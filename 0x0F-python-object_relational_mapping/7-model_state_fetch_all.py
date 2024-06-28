@@ -1,41 +1,21 @@
 #!/usr/bin/python3
-"""List all State objects from the database hbtn_0e_6_usa"""
-
-if __name__ == "__main__":
-    from sqlalchemy import create_engine
+"""
+lists all state objects from database
+"""
+if __name__ == '__main__':
+    from sqlalchemy import create_engine, MetaData
     from sqlalchemy.orm import sessionmaker
-    from sys import argv
     from model_state import Base, State
+    import sys
 
-    if len(argv) != 4:
-        print(f"Usage: {argv[0]} <mysql username> <mysql password> <database name>")
-        exit(1)
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost:3306/{}"
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]))
+    connection = engine.connect()
+    Base.metadata.create_all(engine)
 
-    username, password, db_name = argv[1], argv[2], argv[3]
+    Session = sessionmaker(bind=engine)
+    session = Session()
 
-    try:
-        
-        engine = create_engine(
-            f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}',
-            pool_pre_ping=True
-        )
-        Base.metadata.create_all(engine)
-
-       
-        Session = sessionmaker(bind=engine)
-
-        
-        session = Session()
-
-       
-        states = session.query(State).order_by(State.id).all()
-
-        
-        for state in states:
-            print(f"{state.id}: {state.name}")
-
-        
-        session.close()
-    except Exception as e:
-        print(f"Error: {e}")
-        exit(1)
+    states = session.query(State).order_by(State.id)
+    for state in states:
+        print("{}: {}".format(state.id, state.name))
