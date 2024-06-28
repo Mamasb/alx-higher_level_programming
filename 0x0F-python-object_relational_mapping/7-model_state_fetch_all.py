@@ -1,28 +1,41 @@
 #!/usr/bin/python3
-
-""" Write a script that lists all State objects """
+"""List all State objects from the database hbtn_0e_6_usa"""
 
 if __name__ == "__main__":
-
     from sqlalchemy import create_engine
-    from sqlalchemy.ext.declarative import declarative_base
     from sqlalchemy.orm import sessionmaker
-    import sys
+    from sys import argv
     from model_state import Base, State
 
-    inp = sys.argv
-    if len(inp) < 4:
+    if len(argv) != 4:
+        print(f"Usage: {argv[0]} <mysql username> <mysql password> <database name>")
         exit(1)
-    conn_str = 'mysql+mysqldb://{}:{}@localhost:3306/{}'
-    engine = create_engine(conn_str.format(inp[1], inp[2], inp[3]))
-    Session = sessionmaker(bind=engine)
 
-    Base.metadata.create_all(engine)
+    username, password, db_name = argv[1], argv[2], argv[3]
 
-    session = Session()
+    try:
+        
+        engine = create_engine(
+            f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}',
+            pool_pre_ping=True
+        )
+        Base.metadata.create_all(engine)
 
-    output = session.query(State).order_by(State.id).all()
-    for state in output:
-        print("{}: {}".format(state.id, state.name))
+       
+        Session = sessionmaker(bind=engine)
 
-    session.close()
+        
+        session = Session()
+
+       
+        states = session.query(State).order_by(State.id).all()
+
+        
+        for state in states:
+            print(f"{state.id}: {state.name}")
+
+        
+        session.close()
+    except Exception as e:
+        print(f"Error: {e}")
+        exit(1)
