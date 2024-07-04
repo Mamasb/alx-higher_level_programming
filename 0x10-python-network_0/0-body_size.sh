@@ -1,13 +1,3 @@
 #!/bin/bash
-
-# Check if URL is provided
-if [ -z "$1" ]; then
-  echo "Usage: $0 <URL>"
-  exit 1
-fi
-
-# Assign the URL to a variable
-URL="$1"
-
-# Use curl to send a request to the URL and display the size of the response body in bytes
-curl -so /dev/null "$URL" -w "%{size_download}\n"
+# takes in a URL, sends a request to that URL, and displays the size of the body of the response
+curl -Is $1 | grep "Content-Length:" | cut -d ' ' -f2
