@@ -1,3 +1,3 @@
-coming soon
-coming soon
+Coming soon
+Coming soon
 
